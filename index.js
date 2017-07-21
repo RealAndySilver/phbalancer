@@ -4,6 +4,7 @@ var path = require('path');
 var bodyParser = require("body-parser");
 const port = process.env.PORT || 3000;
 
+/*
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UNLOCK,PURGE');
@@ -16,6 +17,7 @@ var allowCrossDomain = function(req, res, next) {
 	  next();  
     }
 }
+*/
 
 // Code to run if we're in the master process
 if (cluster.isMaster) {
@@ -43,10 +45,10 @@ if (cluster.isMaster) {
 	const app = express();
 	const server = require('http').Server(app);
 	
-    app.use(allowCrossDomain);
+    //app.use(allowCrossDomain);
 
 	app.use(bodyParser.json({limit: '50mb'}));
-	app.use(bodyParser.urlencoded({limit: '50mb', extended: true }));
+	//app.use(bodyParser.urlencoded({limit: '50mb', extended: true }));
 
 	var balancer = require("./balancer.js")(app,cluster.worker);
 	
